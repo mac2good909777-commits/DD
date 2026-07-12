@@ -102,6 +102,7 @@ tr:nth-child(even) td { background: var(--muju-bg2); }
 }
 .report-header h1 { margin: 0 0 4px; }
 .report-header .sub { color: var(--text-muted); font-size: .9rem; }
+.report-meta { text-align: right; }
 
 .disclaimer {
   background: var(--muju-bg2);
@@ -147,3 +148,46 @@ footer.site {
 }
 
 .overflow-x { overflow-x: auto; }
+
+/* ---------- 手機閱讀優化 ---------- */
+@media (max-width: 640px) {
+  html, body { font-size: 14px; }
+  .wrap { padding: 24px 16px 56px; }
+
+  header.site { padding: 18px 16px; }
+  header.site .wrap { flex-direction: column; align-items: flex-start; gap: 4px; }
+  header.site h1 { font-size: 1.05rem; }
+  header.site .tag { font-size: .78rem; }
+
+  h1 { font-size: 21px; letter-spacing: .3px; line-height: 1.35; }
+  h2 { font-size: 18px; margin: 28px 0 12px; }
+  h3 { font-size: 15px; }
+
+  .report-header { flex-direction: column; gap: 12px; padding-bottom: 16px; }
+  .report-meta { text-align: left; width: 100%; }
+  .report-meta .badge { display: inline-block; }
+
+  .card { padding: 16px; }
+  .company-list .card { padding: 14px 16px; }
+  .meta-row { gap: 8px 12px; font-size: .78rem; }
+
+  .viewpoint, .disclaimer { padding: 12px 14px; font-size: .85rem; }
+
+  /* 表格：直向堆疊，避免橫向擠壓或溢出 */
+  table, thead, tbody, tr { display: block; width: 100%; }
+  table { margin: 10px 0; }
+  tr { margin-bottom: 10px; border: 1px solid var(--muju-border); border-radius: 3px; overflow: hidden; }
+  tr:last-child { margin-bottom: 0; }
+  th, td { display: block; width: 100%; border: none; padding: 8px 12px; }
+  th { border-bottom: 1px solid rgba(255,255,255,.15); font-size: .82rem; }
+  td { border-top: none; }
+  tr:nth-child(even) td { background: var(--muju-bg2); }
+
+  .overflow-x table { min-width: 0; }
+}
+
+/* 觸控目標：確保連結有足夠的可點擊高度 */
+@media (pointer: coarse) {
+  .back-link, .company-list a.title { padding: 2px 0; }
+  a { text-underline-offset: 2px; }
+}
