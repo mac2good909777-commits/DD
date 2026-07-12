@@ -1,4 +1,4 @@
-/* 睦聚開發 — 正式提案風格 */
+/* 睦聚開發 — 正式提案風格（行動裝置優先） */
 :root {
   --muju-blue: #2B5A8C;
   --muju-dark: #1E3A5F;
@@ -15,7 +15,8 @@
 
   --muju-up: #16A34A;
   --muju-down: #DC2626;
-  --muju-gold: #D97706;
+  --muju-gold: #D97706;      /* 裝飾用（邊線、底色）*/
+  --muju-gold-text: #92400E; /* 文字用：與白底對比達 WCAG AA（一般字仍需 4.5:1） */
 
   --bg: #FFFFFF;
   --bg-card: #FFFFFF;
@@ -25,7 +26,8 @@
   --accent: var(--muju-blue);
 }
 
-/* 全站字級一律使用固定 px（不用 rem/em），確保任何螢幕寬度下最小字級都 >= 12px */
+/* 全站字級一律使用固定 px（不用 rem/em），任何螢幕寬度下最小字級都 >= 12px；
+   手機（<=640px）以「可閱讀性」為第一優先，內文提升到 16px 並保留寬鬆行距。 */
 * { box-sizing: border-box; }
 html, body {
   margin: 0; padding: 0;
@@ -34,6 +36,9 @@ html, body {
   font-family: "Noto Sans TC", "Microsoft JhengHei", -apple-system, "Segoe UI", "PingFang TC", sans-serif;
   line-height: 1.8;
   font-size: 15px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  -webkit-text-size-adjust: 100%;
 }
 a { color: var(--muju-blue); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -74,9 +79,9 @@ header.site .tag { color: #CBD5E1; font-size: 13px; }
   color: var(--muju-blue);
   font-weight: 700;
 }
-.badge.warn { background: #FEF3E2; color: var(--muju-gold); }
+.badge.warn { background: #FEF3E2; color: var(--muju-gold-text); }
 
-h1 { font-size: 28px; color: var(--muju-dark); letter-spacing: 1px; }
+h1 { font-size: 28px; color: var(--muju-dark); letter-spacing: 1px; line-height: 1.4; }
 h2 {
   font-size: 22px;
   color: var(--muju-blue);
@@ -87,7 +92,9 @@ h2 {
   line-height: 1.4;
 }
 h2:first-of-type { margin-top: 8px; }
-h3 { font-size: 16px; color: var(--muju-dark); margin: 20px 0 8px; font-weight: 700; }
+h3 { font-size: 16px; color: var(--muju-dark); margin: 20px 0 8px; font-weight: 700; line-height: 1.5; }
+
+p, li { line-height: 1.8; }
 
 table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
 th, td { text-align: left; padding: 10px 12px; border: 1px solid var(--muju-border); vertical-align: top; }
@@ -114,7 +121,7 @@ tr:nth-child(even) td { background: var(--muju-bg2); }
   font-size: 14px;
   margin: 20px 0;
 }
-.disclaimer::before { content: "※ "; color: var(--muju-gold); font-weight: 700; }
+.disclaimer::before { content: "※ "; color: var(--muju-gold-text); font-weight: 700; }
 
 .viewpoint {
   background: var(--muju-light);
@@ -124,18 +131,19 @@ tr:nth-child(even) td { background: var(--muju-bg2); }
   margin: 20px 0 28px;
   font-size: 14px;
 }
-.viewpoint p { margin: 6px 0; }
+.viewpoint p { margin: 10px 0; }
 .viewpoint .vp-num { color: var(--muju-blue); font-weight: 700; margin-right: 4px; }
 
 .figure {
-  color: var(--muju-gold);
+  color: var(--muju-gold-text);
   font-weight: 700;
 }
 
 .todo-list { padding-left: 1.2em; }
-.todo-list li { margin-bottom: 8px; }
+.todo-list li { margin-bottom: 10px; }
 
 .source-list { font-size: 13px; color: var(--text-muted); padding-left: 1.2em; }
+.source-list li { margin-bottom: 4px; }
 
 .back-link { display: inline-block; margin-bottom: 18px; font-size: 14px; color: var(--muju-blue); }
 
@@ -150,53 +158,65 @@ footer.site {
 
 .overflow-x { overflow-x: auto; }
 
-/* ---------- 手機閱讀優化（所有字級維持 >= 12px） ---------- */
+/* ========================================================
+   手機閱讀優化（<=640px）—— 可閱讀性優先於資訊密度
+   內文一律 >= 16px，標題保留清楚的視覺層級，行距加寬、
+   段落與段落之間留白加大，表格改為直向堆疊避免擠壓。
+   ======================================================== */
 @media (max-width: 640px) {
-  html, body { font-size: 14px; }
-  .wrap { padding: 24px 16px 56px; }
+  html, body { font-size: 16px; line-height: 1.85; }
+  .wrap { padding: 28px 18px 60px; }
 
   header.site { padding: 18px 16px; }
   header.site .wrap { flex-direction: column; align-items: flex-start; gap: 4px; }
-  header.site h1 { font-size: 16px; }
-  header.site .tag { font-size: 12px; }
+  header.site h1 { font-size: 17px; }
+  header.site .tag { font-size: 13px; }
 
-  h1 { font-size: 20px; letter-spacing: .3px; line-height: 1.35; }
-  h2 { font-size: 17px; margin: 28px 0 12px; }
-  h3 { font-size: 15px; }
+  h1 { font-size: 22px; letter-spacing: .3px; line-height: 1.4; }
+  h2 { font-size: 19px; margin: 32px 0 14px; line-height: 1.45; }
+  h3 { font-size: 17px; margin: 22px 0 10px; }
 
-  .report-header { flex-direction: column; gap: 12px; padding-bottom: 16px; }
+  p, li { line-height: 1.85; }
+  p { margin: 14px 0; }
+
+  .report-header { flex-direction: column; gap: 14px; padding-bottom: 18px; }
   .report-meta { text-align: left; width: 100%; }
   .report-meta .badge { display: inline-block; }
-  .report-header .sub { font-size: 12px; }
+  .report-header .sub { font-size: 13px; }
 
-  .card { padding: 16px; }
-  .company-list .card { padding: 14px 16px; }
-  .company-list a.title { font-size: 15px; }
-  .meta-row { gap: 8px 12px; font-size: 12px; }
+  .card { padding: 18px 16px; }
+  .company-list .card { padding: 16px; }
+  .company-list a.title { font-size: 16px; }
+  .meta-row { gap: 8px 12px; font-size: 13px; row-gap: 6px; }
   .badge { font-size: 12px; }
 
-  .viewpoint, .disclaimer { padding: 12px 14px; font-size: 13px; }
+  .viewpoint, .disclaimer { padding: 14px 16px; font-size: 15px; }
+  .viewpoint p { margin: 12px 0; }
 
-  table { font-size: 13px; }
-  .source-list { font-size: 12px; }
-  .back-link { font-size: 13px; }
-  footer.site { font-size: 12px; }
+  table { font-size: 15px; }
+  .source-list { font-size: 13px; }
+  .back-link { font-size: 14px; padding: 6px 0; }
+  footer.site { font-size: 12px; line-height: 1.6; }
 
-  /* 表格：直向堆疊，避免橫向擠壓或溢出 */
+  /* 表格：直向堆疊，避免橫向擠壓或溢出；標籤與內容分列，行距加大方便手指閱讀 */
   table, thead, tbody, tr { display: block; width: 100%; }
-  table { margin: 10px 0; }
-  tr { margin-bottom: 10px; border: 1px solid var(--muju-border); border-radius: 3px; overflow: hidden; }
+  table { margin: 12px 0; }
+  tr { margin-bottom: 12px; border: 1px solid var(--muju-border); border-radius: 4px; overflow: hidden; }
   tr:last-child { margin-bottom: 0; }
-  th, td { display: block; width: 100%; border: none; padding: 8px 12px; }
-  th { border-bottom: 1px solid rgba(255,255,255,.15); font-size: 12px; }
+  th, td { display: block; width: 100%; border: none; padding: 10px 14px; line-height: 1.6; }
+  th { border-bottom: 1px solid rgba(255,255,255,.15); font-size: 13px; }
   td { border-top: none; }
   tr:nth-child(even) td { background: var(--muju-bg2); }
 
   .overflow-x table { min-width: 0; }
+
+  /* 清單項目間距加大，避免長段落擠成一團 */
+  ul, ol { padding-left: 1.3em; }
+  ul li, ol li { margin-bottom: 10px; }
 }
 
-/* 觸控目標：確保連結有足夠的可點擊高度 */
+/* 觸控目標：確保連結與可點擊元素有足夠的點擊高度（>=44px 建議值以行高/內距達成） */
 @media (pointer: coarse) {
-  .back-link, .company-list a.title { padding: 2px 0; }
+  .back-link, .company-list a.title { padding: 4px 0; display: inline-block; }
   a { text-underline-offset: 2px; }
 }
